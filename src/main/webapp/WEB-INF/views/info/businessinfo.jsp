@@ -561,7 +561,7 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 							
 							if (!Kakao.isInitialized()) {
 								// 사용할 앱의 JavaScript 키를 설정해 주세요.
-								Kakao.init('6c505216c8faffd1bf7690ddd222d68e');
+								Kakao.init('cd142efc33a45727f19cee4fb015dc51');
 							};	 
 						    
 						    // 채널 1:1 채팅 버튼을 생성합니다.

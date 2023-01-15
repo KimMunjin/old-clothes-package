@@ -253,7 +253,7 @@
 			})
 		}
 	$('#chatback').click(function(){
-		location.replace("http://localhost:8088/chatList")
+		location.replace("http://13.125.101.12:8088/chatList")
 	})
 	</script>
 </body>
