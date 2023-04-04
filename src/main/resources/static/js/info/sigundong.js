@@ -54,10 +54,6 @@ jQuery(document).ready(function () {
 				document.getElementById('dongName').value=dongName;	
 				
 				
-				console.log(dongName);
-				console.log(sido.text());
-				console.log(sigugun.text());
-				console.log(dong.text());
 			});
 		});
 

@@ -239,7 +239,6 @@ h1, h2, h3, h4, h5, h6, address, caption, cite, code, dfn, em, th, var {
 		        
 		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 		            message = '<div style="width:100%; padding:5px;margin-left:60%;box-sizing:content-box;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
-		        	console.log(message);
 		        // 마커와 인포윈도우를 표시합니다
 		        displayMarker(locPosition, message);
 		            
@@ -315,10 +314,6 @@ h1, h2, h3, h4, h5, h6, address, caption, cite, code, dfn, em, th, var {
 					var contentadd = "<div style= 'width:100%; padding:5px; box-sizing:content-box;'>"+document.getElementById('dongName').value+"</div>";
 					var lat = result[0].y;
 					var lng = result[0].x;
-					console.log(geocoder+"geo");
-					console.log(contentadd);
-					console.log("lat: " + lat);
-					console.log("lng: " + lng);
 					getAddr(lat,lng);
 					function getAddr(lat,lng){
 						//주소=>좌표 전환 객체 선언
@@ -363,9 +358,6 @@ h1, h2, h3, h4, h5, h6, address, caption, cite, code, dfn, em, th, var {
 					alert("지역을 전부 설정해주세요"); //하나라도 미선택 시 alert창
 					return false;
 				}
-				console.log(sido+"!");
-				console.log(sigugun+"!");
-				console.log(dong+"!");
 				//ajax로 selectbox 선택한 값 넘겨서 리스트 받아오기
 				$.ajax({
 					type: 'post',
@@ -382,7 +374,6 @@ h1, h2, h3, h4, h5, h6, address, caption, cite, code, dfn, em, th, var {
 						setMarkers2(null); //기존에 있는 마커 있으면 초기화
 						setInfo2(null); //기존에 있는 인포윈도우 초기화
 						var bli = "";
-						console.log("데이터길이:"+data.length);
 						if(data.length==0){
 							bli += '<li id="listmove" class="listmove"><a href="javascript:void(0);"><span class="store_item"><h3 style="text-align: center; font-size: 17px; margin-left: 16px; margin-top:7px; color: cadetblue;">선택된 지역에 헌옷수거함 데이터가 없습니다.</h3><br></span></a></li><br>';
 						}
@@ -455,7 +446,6 @@ h1, h2, h3, h4, h5, h6, address, caption, cite, code, dfn, em, th, var {
 						})
 						bli += "</ul>"
 						$('.list').append(bli); //binlist 위치에 받아온 리스트 출력
-						console.log(markers2);
 						
 					},
 					error: function(){alert("조건 전송 오류");}

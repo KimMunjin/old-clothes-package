@@ -319,7 +319,6 @@
    </div>
    <script>
    var bnoo = $('#bno').val();
-   console.log("bnoo :" + bnoo);
    //모달 켜기
 	var cano;
    var cuserno;
@@ -328,14 +327,11 @@
        var targetElement = e.target;       
        cuserno = targetElement.getAttribute("data-abtn2");
        cano = targetElement.getAttribute("data-abtn3");       
-       console.log("cuserno : " + cuserno);
-       console.log("cano : " + cano);
         wapplydelete(); //삭제함수 호출
    });
      
    
    function wapplydelete(){      
-       console.log("신청 취소");       
           $.ajax({
               url : '/wapplydelete/'+cano+'/'+cuserno,
               type : 'get',              
@@ -354,9 +350,7 @@
       $('.firstmodal').css('visibility','visible');
       $('.firstmodal').css('opacity','1');
       $('.firstmodal').css('z-index','2');
-      console.log($(this).parent().parent().parent().parent());
       uapplyIndex = $('.applyList').index($(this).parent().parent().parent().parent());
-      console.log(uapplyIndex);
       var ano = $('.anoContent:eq('+uapplyIndex+')').attr("data-sno");
       $('.modal__close').click(function(){
          $.ajax({
@@ -364,7 +358,6 @@
             url : "/uapplyReviewStatus",
             data : {ano:ano},
             success : function(data) {
-               console.log(data);
                location.reload();
             },
             error : function(err) {
@@ -378,9 +371,7 @@
       $('.firstmodal').css('visibility','visible');
       $('.firstmodal').css('opacity','1');
       $('.firstmodal').css('z-index','2');
-      console.log($(this).parent().parent().parent().attr('class'));
       uapplyIndex = $('.applyList').index($(this).parent().parent().parent());
-      console.log("uaaply:"+uapplyIndex);
       var ano = $('.anoContent:eq('+uapplyIndex+')').attr("data-sno");
    })
    
@@ -404,7 +395,6 @@
       })
       
    $("#uapplyReviewcomplete7").click(function(){
-         console.log($('.bno:eq('+uapplyIndex+')'));
          bno = $('.bnoContent:eq('+uapplyIndex+')').attr("data-sno");
          var ano = $('.anoContent:eq('+uapplyIndex+')').attr("data-sno");
          var content = $('.content').val();
@@ -416,7 +406,6 @@
                   bno:bno,
                   ano:ano},
             success : function(data) {
-               console.log(data);
                location.reload();
             },
             error : function(err) {

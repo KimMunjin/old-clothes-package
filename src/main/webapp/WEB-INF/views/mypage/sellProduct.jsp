@@ -213,8 +213,6 @@
 				url : "/cancelDeal",
 				data : {ino:ino},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -234,8 +232,6 @@
 				url : "/completeSellDeal",
 				data : {ino:ino},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -253,8 +249,6 @@
 				url : "/cancelSharingDeal",
 				data : {sno:sno},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -265,7 +259,6 @@
 		})
 		
 		$('.complete1').click(function(){
-			console.log($(this).parent().parent());
 			var index = $('.sharingList').index($(this).parent().parent());
 			$(this).attr("disabled", true);
 			var sno = $(".sharingcard:eq("+index+")").attr("data-sno");
@@ -274,8 +267,6 @@
 				url : "/completeSharingDeal",
 				data : {sno:sno},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -292,7 +283,6 @@
 		
 		$(".sellProductSelect").change(function() {
 			var sect = $(".sellProductSelect option:selected").val();
-			console.log(sect);
 			if(sect == "개인 판매") {
 				$('.sharingCards').hide();
 				$('.sharingPage').hide();

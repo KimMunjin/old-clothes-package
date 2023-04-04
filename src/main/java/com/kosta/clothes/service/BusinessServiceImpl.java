@@ -59,13 +59,10 @@ public class BusinessServiceImpl implements BusinessService {
 		map.put("sido", sido);
 		map.put("sigungu", sigungu);
 		if(category.equals("review")) {
-			System.out.println("review들어옴");
 			return businessDao.selectUserCatereview(map);
 		}else if(category.equals("high")) {
-			System.out.println("high들어옴");
 			return businessDao.selectUserCatehigh(map);
 		}else {
-			System.out.println("low들어옴");
 			return businessDao.selectUserCatelow(map);
 		}
 	}

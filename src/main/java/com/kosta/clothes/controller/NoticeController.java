@@ -43,7 +43,6 @@ public class NoticeController {
 			articleList = noticeService.getNoticeList(page,pageInfo);
 			}
 			mav.addObject("articleList", articleList);
-			System.out.println("areticleList"+articleList.toString());
 			mav.addObject("pageInfo", pageInfo);
 			mav.setViewName("/notice/noticeList");
 		} catch(Exception e){
@@ -56,7 +55,6 @@ public class NoticeController {
 		@GetMapping("noticeView/{nno}")
 		public ModelAndView freeView(@PathVariable("nno") Integer nno,
 				@RequestParam(value = "page", required = false, defaultValue = "1") Integer page, Model model) {
-			System.out.println("들어옴");
 			ModelAndView mav = new ModelAndView();
 			try {				
 				 noticeService.Noticehit(nno);

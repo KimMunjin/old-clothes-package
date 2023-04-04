@@ -25,13 +25,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 				
 				//3. Method의 @Auth 받아오기
 				Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
-				System.out.println("메서드에서 auth의 존재여부 : "+auth);
 				
 				//4. Method에 @Auth가 없으면 (인증이 필요 없는 메서드)
 				if(auth == null) {
 					//4.  Class(Type)에 @Auth를 받아오기
 					auth = handlerMethod.getBeanType().getAnnotation(Auth.class);
-					System.out.println("클래스에서 auth의 존재여부 : "+auth);
 					if (auth == null) {
 						return true;
 					}
@@ -47,7 +45,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 				//getSession(),getSession(true)는 session이 없으면 session을 만든다.
 				//getSession(false)는 session이 없으면 null 반환
 				
-				System.out.println("session:"+session);
 				if(session.getAttribute("authUser") == null) {//리턴이 안되어 있음
 					response.sendRedirect("/login");
 					return false;

@@ -85,7 +85,6 @@ $(document).ready(function(){
 	let globalCurrentPage=1; //현재 페이지
 	let pageHtml="";
 	
-	console.log(category);
 	var line = "";
 	 $.ajax({
 		type: 'post',
@@ -99,7 +98,6 @@ $(document).ready(function(){
 		success: function(data){
 			$('#list').empty();
 			totalData= data.length;
-			console.log(data);
 			
 			//목록 표시 호출
 			displayData(1,dataPerPage);
@@ -115,14 +113,9 @@ $(document).ready(function(){
 				//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 된다
 				currentPage=Number(currentPage);
 				dataPerPage=Number(dataPerPage);
-				console.log(currentPage);
-				console.log(dataPerPage);
 				//var i = (currentPage-1)*dataPerPage
-				//console.log("i1:"+i);
 				chartHtml +='<div class="user-list">';
 				data.forEach(function(data,i){
-					console.log("i2:"+i);
-					console.log(data);
 					if(i>=((currentPage-1)*dataPerPage+dataPerPage)){
 						return false;
 					}
@@ -157,17 +150,13 @@ $(document).ready(function(){
 				$("#pagingul").html(pageHtml);
 			}
 			function paging(totalData, dataPerPage, pageCount, currentPage){
-				console.log("currentPage:" +currentPage);
 				
 				let totalPage= Math.ceil(totalData/dataPerPage);//총페이지수
-				console.log("totalPage:" +totalPage);
 				if(totalPage<pageCount){
 					pageCount = totalPage;
 				}
-				console.log("pageCount:"+pageCount);
 				let pageGroup = Math.ceil(currentPage/pageCount);//페이지 그룹
 				let last = pageGroup*pageCount;//화면에 보여질 마지막 페이지 번호
-				console.log("last:"+last);
 				
 				if(last>totalPage){
 					last = totalPage;
@@ -189,7 +178,6 @@ $(document).ready(function(){
 				if(last<totalPage){
 					pageHtml +="<li><a href='#' id='next'>>></a></li>";
 				}
-				console.log(pageHtml);
 				$("#pagingul").html(pageHtml);
 				
 				
@@ -197,7 +185,6 @@ $(document).ready(function(){
 				$(document).on("click","#pagingul li a",function(){
 					let $id = $(this).attr("id");
 					selectedPage=$(this).text();
-					console.log("선택페이지:"+selectedPage);
 					if($id=="next"){
 						selectedPage = next;
 					}if($id=="prev"){
@@ -217,8 +204,6 @@ $(document).ready(function(){
 				var targetElement = e.target.parentElement;
 				let deleteno = targetElement.getAttribute('data-value');
 				let deleteclass = targetElement.getAttribute('class');
-				console.log("deleteno:"+deleteno);
-				console.log("deleteclass:"+deleteclass);
 				if(deleteclass=="sdelete"){
 					category = "free"
 				}else if(deleteclass=="idelete"){
@@ -226,7 +211,6 @@ $(document).ready(function(){
 				}else if(deleteclass=="bdelete"){
 					category = "busi"
 				}
-				console.log("삭제:"+deleteno);
 				$.ajax({
 					type: 'post',
 					url: 'deletelike',
@@ -238,7 +222,6 @@ $(document).ready(function(){
 					}),
 					contentType: "application/json",
 					success: function(result){
-						console.log(result);
 						if(result){
 							alert("좋아요 취소되었습니다");
 							refreshlist(category,globalCurrentPage);
@@ -263,7 +246,6 @@ function catelist(){
 	let globalCurrentPage=1; //현재 페이지
 	let pageHtml="";
 	
-	console.log(category);
 	var line = "";
 	 $.ajax({
 		type: 'post',
@@ -277,7 +259,6 @@ function catelist(){
 			success: function(data){
 			$('#list').empty();
 			totalData= data.length;
-			console.log(data);
 			
 			//목록 표시 호출
 			displayData(1,dataPerPage);
@@ -293,14 +274,9 @@ function catelist(){
 				//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 된다
 				currentPage=Number(currentPage);
 				dataPerPage=Number(dataPerPage);
-				console.log(currentPage);
-				console.log(dataPerPage);
 				//var i = (currentPage-1)*dataPerPage
-				//console.log("i1:"+i);
 				chartHtml +='<div class="user-list">';
 				data.forEach(function(data,i){
-					console.log("i2:"+i);
-					console.log(data);
 					if(i>=((currentPage-1)*dataPerPage+dataPerPage)){
 						return false;
 					}
@@ -374,17 +350,13 @@ function catelist(){
 				$("#pagingul").html(pageHtml);
 			}
 			function paging(totalData, dataPerPage, pageCount, currentPage){
-				console.log("currentPage:" +currentPage);
 				
 				let totalPage= Math.ceil(totalData/dataPerPage);//총페이지수
-				console.log("totalPage:" +totalPage);
 				if(totalPage<pageCount){
 					pageCount = totalPage;
 				}
-				console.log("pageCount:"+pageCount);
 				let pageGroup = Math.ceil(currentPage/pageCount);//페이지 그룹
 				let last = pageGroup*pageCount;//화면에 보여질 마지막 페이지 번호
-				console.log("last:"+last);
 				
 				if(last>totalPage){
 					last = totalPage;
@@ -406,7 +378,6 @@ function catelist(){
 				if(last<totalPage){
 					pageHtml +="<li><a href='#' id='next'>>></a></li>";
 				}
-				console.log(pageHtml);
 				$("#pagingul").html(pageHtml);
 				
 				
@@ -414,7 +385,6 @@ function catelist(){
 				$(document).on("click","#pagingul li a",function(){
 					let $id = $(this).attr("id");
 					selectedPage=$(this).text();
-					console.log("선택페이지:"+selectedPage);
 					
 					if($id=="next"){
 						selectedPage = next;
@@ -441,7 +411,6 @@ function catelist(){
 				}else if(deleteclass=="bdelete"){
 					category = "busi"
 				}
-				console.log("삭제:"+deleteno);
 				$.ajax({
 					type: 'post',
 					url: 'deletelike',
@@ -453,7 +422,6 @@ function catelist(){
 					}),
 					contentType: "application/json",
 					success: function(result){
-						console.log(result);
 						if(result){
 							alert("좋아요 취소되었습니다");
 							refreshlist(category,globalCurrentPage);
@@ -468,7 +436,6 @@ function catelist(){
 			$(document).off("click","#applymodal").on("click","#applymodal",function(m){
 				var apclick = m.target.parentElement;
 				var bno = apclick.getAttribute('data-value');
-				console.log("bno:"+bno);
 	           	document.getElementById("lmodal").style.display="block";
 	           	document.getElementById("bno").value=bno;
 			})
@@ -485,7 +452,6 @@ function catelist(){
 }
 
 function refreshlist(category,globalCurrentPage){
-	console.log(category);
 	let totalData; //총 데이터 수
 	let dataPerPage=7; //한 페이지에 나타낼 글 수
 	let pageCount=5; //페이징에 나타낼 페이지 수
@@ -502,7 +468,6 @@ function refreshlist(category,globalCurrentPage){
 		success: function(data){
 			$('#list').empty();
 			totalData= data.length;
-			console.log(data);
 			
 			//목록 표시 호출
 			displayData(globalCurrentPage,dataPerPage);
@@ -518,13 +483,8 @@ function refreshlist(category,globalCurrentPage){
 				//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 된다
 				currentPage=Number(currentPage);
 				dataPerPage=Number(dataPerPage);
-				console.log(currentPage);
-				console.log(dataPerPage);
 				//var i = (currentPage-1)*dataPerPage
-				//console.log("i1:"+i);
 				data.forEach(function(data,i){
-					console.log("i2:"+i);
-					console.log(data);
 					if(i>=((currentPage-1)*dataPerPage+dataPerPage)){
 						return false;
 					}
@@ -607,23 +567,18 @@ function refreshlist(category,globalCurrentPage){
 	            $(document).off("click","#applymodal").on("click","#applymodal",function(m){
 					var apclick = m.target.parentElement;
 					var bno = apclick.getAttribute('data-value');
-					console.log("bno:"+bno);
 		           	document.getElementById("lmodal").style.display="block";
 		           	document.getElementById("bno").value=bno;
 				}) 
 			}
 			function paging(totalData, dataPerPage, pageCount, currentPage){
-				console.log("currentPage:" +currentPage);
 				
 				let totalPage= Math.ceil(totalData/dataPerPage);//총페이지수
-				console.log("totalPage:" +totalPage);
 				if(totalPage<pageCount){
 					pageCount = totalPage;
 				}
-				console.log("pageCount:"+pageCount);
 				let pageGroup = Math.ceil(currentPage/pageCount);//페이지 그룹
 				let last = pageGroup*pageCount;//화면에 보여질 마지막 페이지 번호
-				console.log("last:"+last);
 				
 				if(last>totalPage){
 					last = totalPage;
@@ -645,7 +600,6 @@ function refreshlist(category,globalCurrentPage){
 				if(last<totalPage){
 					pageHtml +="<li><a href='#' id='next'>>></a></li>";
 				}
-				console.log(pageHtml);
 				$("#pagingul").html(pageHtml);
 				
 				
@@ -653,7 +607,6 @@ function refreshlist(category,globalCurrentPage){
 				$(document).on("click","#pagingul li a",function(){
 					let $id = $(this).attr("id");
 					selectedPage=$(this).text();
-					console.log("선택페이지:"+selectedPage);
 					
 					if($id=="next"){
 						selectedPage = next;
@@ -680,7 +633,6 @@ function refreshlist(category,globalCurrentPage){
 				}else if(deleteclass=="bdelete"){
 					category = "busi"
 				}
-				console.log("삭제:"+deleteno);
 				$.ajax({
 					type: 'post',
 					url: 'deletelike',
@@ -692,7 +644,6 @@ function refreshlist(category,globalCurrentPage){
 					}),
 					contentType: "application/json",
 					success: function(result){
-						console.log(result);
 						if(result){
 							alert("좋아요 취소되었습니다");
 							refreshlist(category,globalCurrentPage);

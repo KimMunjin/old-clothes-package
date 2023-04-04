@@ -74,7 +74,6 @@ public class SharingServiceImpl implements SharingService{
 					fileVo.setSno(sharingid); //sharing 글번호 저장
 					fileVo.setContent_type(file.getContentType()); //파일 타입
 					fileDAO.insertFileInfo(fileVo); //tfile에 저장
-					System.out.println("sharingServiceImpl:" + fileVo);
 					
 					FileOutputStream fos = new FileOutputStream(path+fileVo.getTno()); //upload 경로에 파일 저장 
 					FileCopyUtils.copy(file.getBytes(), fos); //문자열을 바이트 배열로 바꿔서 파일에 저장
@@ -89,7 +88,6 @@ public class SharingServiceImpl implements SharingService{
 		sharingvo.setSaddress(sharing.getSaddress());
 		
 		sharingDAO.insertSharing(sharingvo);
-		System.out.println(sharing);
 	}
 
 	@Override
@@ -110,15 +108,11 @@ public class SharingServiceImpl implements SharingService{
 			if(addChange[2].matches("^.*.구$")) { //세 번째 단어에서 '구'로 끝나면 동까지 입력(경기도 고양시 일산동구 백석동처럼 동이 네 번째 자리에 오는 경우) 
 				String join1 = new StringJoiner(" ").add(addChange[0]).add(addChange[1]).add(addChange[2]).add(addChange[3]).toString();
 				sharingList.get(i).setSaddress(join1);
-				System.out.println("join1:" + join1);
 
 			} else { //기본적으로 주소는 동까지 보이게 (서울시 금천구 가산동 - 세 번째 자리까지) 
 				String join2 = new StringJoiner(" ").add(addChange[0]).add(addChange[1]).add(addChange[2]).toString();
 				sharingList.get(i).setSaddress(join2);
-				System.out.println("join2:" + join2);
 			}
-			System.out.println("join:");
-			System.out.println("string:" + addr);			
 		}
 		return sharingList;
 	}
@@ -138,15 +132,11 @@ public class SharingServiceImpl implements SharingService{
 			if(addChange[2].matches("^.*.구$")) { //세 번째 단어에서 '구'로 끝나면 동까지 입력 
 				String join1 = new StringJoiner(" ").add(addChange[0]).add(addChange[1]).add(addChange[2]).add(addChange[3]).toString();
 				sharingList.get(i).setSaddress(join1);
-				System.out.println("join1:" + join1);
 
 			} else {
 				String join2 = new StringJoiner(" ").add(addChange[0]).add(addChange[1]).add(addChange[2]).toString();
 				sharingList.get(i).setSaddress(join2);
-				System.out.println("join2:" + join2);
 			}
-			System.out.println("join:");
-			System.out.println("string:" + addr);			
 		}
 		return sharingList;
 	}

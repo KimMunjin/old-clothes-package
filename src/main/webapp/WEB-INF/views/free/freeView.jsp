@@ -232,11 +232,7 @@
    var userno = $('#userno').val();
    var bno = $('#bno').val();
    var cno = $('#cno').val();
-   console.log("로그인한 유저 : " + auth);
-   console.log("자유게시판 번호 : " + fno);
-   console.log("사용자 로그인 한 번호 : " + userno);
-   console.log("사업자 로그인 한 번호 : " + bno);
-   console.log("댓글 번호 : " + cno);
+  
  //리스트 미리 뿌려주기
    $(document).ready(function(){
 	   windowopen=true;
@@ -251,7 +247,6 @@
 	    	return false;
 	    }
 	    var sect = $('#sect').val();
-	    console.log("sect:"+sect);
 	    commentInsert(insertData, sect); //Insert 함수호출(아래)
 	});
    
@@ -269,10 +264,8 @@
 	function commentInsert(insertData,sect){
 		var num = "";
 		if(sect=="users"){
-			console.log("개인")
 			num = $('#userno').val();
 		}else if(sect="business"){
-			console.log("업자")
 			num = $('#bno').val();
 		}
 		$.ajax({
@@ -323,7 +316,6 @@
 	 
 	 //댓글 목록 
 	 function commentList(){
-		 console.log("댓글리스트");
 	     $.ajax({
 	         url : '/list/'+fno,
 	         type : 'get',
@@ -347,11 +339,9 @@
 	                	 a += '<div class="commenta">'
 	                	 a += '<a onclick="replywindow('+value.cno+');"> 답변 </a>'
 	                	 if(auth =='users' && userno == value.userno){
-	                		 console.log("사용자 수정 삭제");
 			                 a += '<a onclick="commentUpdate('+value.cno+',\''+value.ccontent+'\');"> 수정 </a>';
 			                 a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a>';
 	                	 }else if(auth == 'business' && bno == value.bno){
-	                		 console.log("사업자 수정 삭제");
 	                		 a += '<a onclick="commentUpdate('+value.cno+',\''+value.ccontent+'\');"> 수정 </a>';
 			                 a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a>';
 	                	 }
@@ -371,9 +361,7 @@
 	 //대댓글 등록창
 	 function replywindow(cno){
 		 if(windowopen){
-		 console.log("참")	 
 		 windowopen=false;
-		 console.log(window);
 		 var a = '';
 		 
 		 a += '<div class="commentContainer replycontainer">';				        
@@ -392,7 +380,6 @@
 	     a += '</div>';
 		 }else{
 			 $(".replycontainer").empty();
-			 console.log("거짓")
 			 windowopen=true;
 			 var a='';
 		 }
@@ -403,7 +390,6 @@
 	 $(document).off("click").on("click","[name=replycommentInsertBtn]",function(e){
 		 var targetElement = e.target;
 		 var cno = targetElement.getAttribute("data-value");
-		 console.log("cno:"+cno);
 		 
 		 var insertData = $('[name=replycommentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
 		    if($('input[class=replyccontent]').val() == '' ){
@@ -411,21 +397,15 @@
 		    	return false;
 		    }
 		    var sect = $('#sect').val();
-		    console.log("sect:"+sect);
 		    replycommentInsert(insertData, sect, cno); //Insert 함수호출(아래)
 		 
 	 } )
 	 //대댓글 등록 함수
 	 function replycommentInsert(insertData, sect, cno){
-		 console.log(insertData);
-		 console.log(sect);
-		 console.log(cno);
 		 var num = "";
 		 if(sect=="users"){
-		 	console.log("개인")
 		 	num = $('#userno').val();
 		 }else if(sect="business"){
-		 	console.log("업자")
 		 	num = $('#bno').val();
 		 }
 		 $.ajax({
@@ -445,7 +425,6 @@
 		
 	//댓글 삭제 
 	 function commentDelete(cno){
-		console.log("삭제할 번호 : " + cno);
 		var result = confirm("삭제하시겠습니까? 삭제 후 취소가 불가능합니다.");
 		if(result){
 		     $.ajax({
@@ -477,8 +456,6 @@
 	 function commentUpdateProc(cno){
 	     var updateContent = $('[name=ccontent_'+cno+']').val();
 	     var result = confirm("수정하시겠습니까?");
-	     console.log("수정할 cno : " + cno);
-	     console.log("수정할 내용 : " + updateContent);
 	     if(result){
 		     $.ajax({
 		         url : "/update/"+cno + "/" +fno,

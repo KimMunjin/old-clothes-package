@@ -29,7 +29,6 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<Sell> getSellList(Integer userno, int page, PageInfo pageInfo) throws Exception {
 		int listCount = mypageDAO.sellListCount(userno); //전체 데이터 개수 가져오기 (전체 게시글 수)
-		System.out.println("row:"+listCount);
 		int maxPage = (int)Math.ceil((double)listCount/10);  
 		int startPage = page/10 * 10 + 1; 
 		int endPage = startPage + 10 -1; 
@@ -192,7 +191,6 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<Sell> getBuySellList(Integer userno, int bspage, PageInfo bspageInfo) throws Exception {
 		int listCount = mypageDAO.buySellListCount(userno); //전체 데이터 개수 가져오기 (전체 게시글 수)
-		System.out.println("row:"+listCount);
 		int maxPage = (int)Math.ceil((double)listCount/10);  
 		int startPage = bspage/10 * 10 + 1; 
 		int endPage = startPage + 10 -1; 
@@ -271,8 +269,6 @@ public class MypageServiceImpl implements MypageService {
 	@Transactional
 	@Override
 	public void deletesLike(Integer userno, Integer sno) throws Exception {
-		System.out.println("userno"+userno);
-		System.out.println("sno"+sno);
 		mypageDAO.deletesLikecount(sno);//무료나눔 테이블에 있는 좋아요 카운트 -1
 		mypageDAO.deletesLike(userno, sno);//좋아요 테이블에 있는 likescheck 0
 	}

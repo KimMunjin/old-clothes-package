@@ -15,7 +15,6 @@ $(function(){
       var hidden = document.getElementById("check_nick").value;
       
       
-      console.log(nickname);
       $.ajax({
          type : "post",
          url : "/nickname",
@@ -72,7 +71,7 @@ $(function(){
 					authCode.attr('value', response);	// authCode의 속성 value값을 인증번호로 설정
 					console.log("input태그에 담긴 인증번호: " + authCode.val());	// 확인용
 	
-					alert('인증 번호가 발송 되었습니다.');
+					alert('인증 번호가 발송 되었습니다.sms는 유료기능이므로 다음 코드를 입력해주세요:' + authCode.val());
 					}
 				},
 				error: function(response) {
@@ -114,8 +113,6 @@ function isSame(){
 	var checkPwd = document.getElementById("password");
 	var checkPwd1 = document.getElementById("pcheckpassword");
 
-	console.log(password);
-	console.log(checkpass);
 	
 	if(document.getElementById('password').value != '' && document.getElementById('pcheckpassword').value != ''){
 		if(document.getElementById('password').value == document.getElementById('pcheckpassword').value){

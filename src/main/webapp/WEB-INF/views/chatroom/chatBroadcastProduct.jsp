@@ -155,10 +155,6 @@
 		<%-- 입력한 메시지를 HTML 형태로 가공 --%>
 		function createTextNode(messageObj) {
 			console.log("createTextNode");
-			console.log("messageObj: " + messageObj.content);
-			console.log("buyername:" + buyerName);
-			console.log("sellername:" + sellerName);
-			console.log("senderName:" + senderName);
 			if(messageObj.senderName==sellerName) {
 				return '<div class="chat-item chat-item-other"><img class="chat-item__img" src="https://raw.githubusercontent.com/heysafronov/mangosteen-chat/master/src/assets/img/matthew.png">'+
 	            '<div class="message"><span class="message__user-name" id="chatRoomSellerName">'+ 
@@ -190,7 +186,6 @@
 		<%-- 읽음처리 --%>
 		function ajaxChatRead() {
 
-			console.log("hi");
 			
 			$.ajax({
 				url:'/chatread/product/ajax',

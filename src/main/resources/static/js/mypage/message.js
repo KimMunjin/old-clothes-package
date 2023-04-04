@@ -91,7 +91,6 @@ $(function () {
 			url : "/viewSendMessage",
 			data : {mno:mno},
 			success : function(data) {
-				console.log(data);
 				var recvUser = data.nickname;
 				var title = data.mtitle;
 				var content = data.mcontent;
@@ -114,10 +113,7 @@ $(function () {
 		var index = $('.letter_img').index(this);
 		var sendUser = $('.sendUser:eq('+index+')').html();
 		var sendUserno = $('.checkbox:eq('+index+') .sendUserno').val();
-		console.log("index:" + index);
 		var sendBno = $('.checkbox:eq('+index+') .sendBno').val();
-		console.log("sendUserno:" + sendUserno);
-		console.log("sendBno:" + sendBno);
 		$("#messageform").empty();  
 		let modalcontext = "";
 		if(sendUserno != null) {
@@ -137,10 +133,8 @@ $(function () {
 	/* 쪽지 확인 */
 	var submitcheck =$('#submitcheck').val();
 	var muserno = $('#muserno').val();
-	console.log(submitcheck);
 	if(submitcheck == "true"){
 		alert("메시지가 성공적으로 발송되었습니다.");
-		console.log(muserno +"  메시지");			
 		window.location.href="redirect:/mypage/umessage/"+ muserno ;
 	} else if(submitcheck =="false"){
 		alert("메시지 발송에 실패하였습니다.");
@@ -156,7 +150,6 @@ $(function () {
 			} else {
 				var recv = document.querySelectorAll('input[name="option1"]:checked');
 				recv.forEach((el) => {
-					console.log(el.parentElement.parentElement.querySelector('.mno').value);
 					var mno = el.parentElement.parentElement.querySelector('.mno').value;
 					$.ajax({
 						type : "get",
@@ -180,7 +173,6 @@ $(function () {
 			} else {
 				var send = document.querySelectorAll('input[name="option2"]:checked');
 				send.forEach((e) => {
-					console.log(e.parentElement.parentElement.querySelector('.mno2').value);
 					var mno = e.parentElement.parentElement.querySelector('.mno2').value;
 					$.ajax({
 						type : "get",
@@ -203,7 +195,6 @@ $(function () {
 	
 	/* select box 페이징 */
 	var select = $("#selectValue");
-	console.log(select.val());
 	if(select.val()==1) {
 		$("#recv option:eq(1)").attr("selected", "selected");
 	}

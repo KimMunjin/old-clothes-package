@@ -21,7 +21,6 @@ function surveyList(){
 		loading = true;
 		let lastsno = $(".card:last").attr("data-sno");
 		let keyword = document.getElementById('keyword').value;
-		console.log("키워드"+keyword);
 		$.ajax({
 			type: 'post',
 			url: 'sellInfiniteScrollDown',
@@ -67,7 +66,6 @@ function surveyList(){
 		          			str	+= "</div>";
 		          			str += "</a>";
 						});
-						console.log(str);
 						$(".card-list").append(str);
 						loading = false;
 				}

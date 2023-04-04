@@ -70,9 +70,7 @@ public class ApplyServiceImpl implements ApplyService{
 		map.put("신청거절", b);
 		map.put("수거완료", c);
 		map.put("신청중", d);
-		System.out.println("신청중:"+d);
 		map.put("신청완료", e);
-		System.out.println("신청완료:"+e);
 		
 		return  map;
 	}
@@ -97,15 +95,10 @@ public class ApplyServiceImpl implements ApplyService{
 
 		@Override
 		public List<Apply> getApplyList(Integer userno, int apage, PageInfo apageInfo) throws Exception {
-			System.out.println("apage: " + apage);
 			int applyCount = applyDAO.applyListCount(userno);
-			System.out.print("ReviewRow:" + applyCount);
 			int maxPage = (int)Math.ceil((double)applyCount/6);  
-			System.out.println("maxPage : " + maxPage);
 			int startPage = apage/6 * 6 + 1;
-			System.out.println("startPage : " + startPage);
 			int endPage = startPage + 6 -1; 
-			System.out.println("endPage : " + endPage);
 			if(endPage > maxPage) { 
 				endPage = maxPage; 
 			}		
@@ -118,9 +111,7 @@ public class ApplyServiceImpl implements ApplyService{
 			
 			//검색한 페이지의 시작 페이지 값을 구한 변수 
 			Integer row = (apage - 1) * 5 + 1;
-			System.out.println("row : " + row);
 			Map<String, Object> map = new HashMap<String, Object>();
-			System.out.println("userno : " + userno);
 			map.put("userno", userno);
 			map.put("row", row);
 			return applyDAO.getApplyList(map);
@@ -130,13 +121,9 @@ public class ApplyServiceImpl implements ApplyService{
 		@Override
 		public List<Apply> bgetApplyList(Integer bno, int bapage, PageInfo bapageInfo) throws Exception {
 			int applyCount = applyDAO.bapplyListCount(bno);
-			System.out.print("ReviewRow:" + applyCount);
 			int maxPage = (int)Math.ceil((double)applyCount/6);  
-			System.out.println("maxPage : " + maxPage);
 			int startPage = bapage/6 * 6 + 1;
-			System.out.println("startPage : " + startPage);
 			int endPage = startPage + 6 -1; 
-			System.out.println("endPage : " + endPage);
 			if(endPage > maxPage) { 
 				endPage = maxPage; 
 			}		
@@ -149,9 +136,7 @@ public class ApplyServiceImpl implements ApplyService{
 			
 			//검색한 페이지의 시작 페이지 값을 구한 변수 
 			Integer row = (bapage - 1) * 5 + 1;
-			System.out.println("row : " + row);
 			Map<String, Object> map = new HashMap<String, Object>();
-			System.out.println("userno : " + bno);
 			map.put("bno", bno);
 			map.put("row", row);
 			return applyDAO.bgetApplyList(map);

@@ -31,7 +31,6 @@ public class ReviewServiceImpl implements ReviewService{
 		int slistCount = reviewDAO.sReviewListCount(userno);
 		int ilistCount = reviewDAO.iReviewListCount(userno);
 		int listCount = slistCount + ilistCount;
-		System.out.print("ReviewRow:" + listCount);
 		int maxPage = (int)Math.ceil((double)listCount/10);  
 		int startPage = rpage/10 * 10 + 1; 
 		int endPage = startPage + 10 -1; 

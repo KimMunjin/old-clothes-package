@@ -54,7 +54,6 @@ public class UsersController {
 	@PostMapping("/personnal")
 	public String personnal(@ModelAttribute Users users, RedirectAttributes re) {
 	
-		System.out.println("usersController:" + users.toString());
 		try {
 			certificationService.insertUsers(users); //사용자가 입력한 정보를 DB에 전달[Service에]
 			re.addFlashAttribute("msg", "개인회원가입이 완료되었습니다.");
@@ -69,7 +68,6 @@ public class UsersController {
 	//회원가입[업체]
 	@PostMapping("/businesss")
 	public String business(@ModelAttribute Business business, RedirectAttributes re) {
-		System.out.println("usersController:" + business.toString());
 		try {
 			certificationService.insertBusiness(business); //사용자가 입력한 정보를 DB에 전달[Service에]
 			re.addFlashAttribute("msg", "업체회원가입이 완료되었습니다.");
@@ -97,9 +95,6 @@ public class UsersController {
 		            String ranNum = Integer.toString(random.nextInt(10));   // 0부터 9까지 랜덤으로 숫자를 뽑는다.
 		            numStr += ranNum;   // 랜덤으로 나온 숫자를 하나씩 누적해서 담는다.
 		        }
-		        // 확인용
-		        System.out.println("수신자 번호 : " + phone); //인증번호를 받을 번호
-		        System.out.println("인증번호 : " + numStr); //인증번호
 		        // 문자 보내기
 		        certificationService.certifiedPhoneNumber(phone , numStr);
 			}
@@ -113,7 +108,6 @@ public class UsersController {
     @ResponseBody
     @PostMapping("/nickname")
     public String checknick(Model model, @RequestParam("nickname") String nickname) {
-    	System.out.println("nickname" + nickname);
     	try {
     		if(certificationService.checkId(nickname)) {
     			return "true"; //닉네임이 중복이라면 true값을 가져온다.
@@ -130,7 +124,6 @@ public class UsersController {
     @ResponseBody
     @PostMapping("/bname")
     public String bname(Model model, @RequestParam("bname") String bname) {
-    	System.out.println("nickname" + bname);
     	try {
     		if(certificationService.checkBname(bname)) {
     			return "true"; //닉네임이 중복이라면 true값을 가져온다.
@@ -148,7 +141,6 @@ public class UsersController {
     @ResponseBody
     @PostMapping("/checkuserid")
     public String checkuserid(Model model, @RequestParam("checkuserid") String checkuserid) {
-    	System.out.println("nickname" + checkuserid);
     	try {
     		if(certificationService.checkuserid(checkuserid)) {
     			return "true"; //아이디가 중복이라면 true값을 가져온다.
@@ -165,7 +157,6 @@ public class UsersController {
     @ResponseBody
     @PostMapping("/businessid")
     public String buserid(Model model, @RequestParam("businessid") String businessid) {
-    	System.out.println("businessid" + businessid);
     	try {
     		if(certificationService.businessidCheck(businessid)) {
     			return "true"; //아이디가 중복이라면 true값을 가져온다.
@@ -184,7 +175,6 @@ public class UsersController {
     public String login(HttpServletRequest request) {
     	String referer = request.getHeader("Referer");
     	request.getSession().setAttribute("redirectURI", referer);
-    	System.out.println("referer:"+referer);
     	return "user/loginform";
     }
     //로그인 실패
@@ -255,7 +245,6 @@ public class UsersController {
   //아이디찾기
   @PostMapping("/searchid")
   public String searchId(@RequestParam("ph")String ph, Model model) {
-	  System.out.println(ph);
 	  try {
 //		 List<List<String>> idList = new ArrayList<>();;
 //		 List<Map<String, Object>> fuId = new ArrayList<>();
@@ -264,11 +253,9 @@ public class UsersController {
 		 List<String> fbId = new ArrayList<>();
 		 String phone = ph; 
 		 fuId = usersService.findUserId(phone); //개인 아이디 검색
-		 System.out.println(fuId);
 		 model.addAttribute("user", fuId);
 		 String bphone = ph;
 		 fbId = usersService.findBusinessId(bphone); //업체 아이디 검색
-		 System.out.println(fbId);
 		 model.addAttribute("business", fbId);
 		 
 		 if(fuId.size()==0&&fbId.size()==0) { // 검색 결과 둘 다 없을 때
@@ -321,11 +308,8 @@ public class UsersController {
   public String changePass(@RequestParam("id")String id, 
 		  @RequestParam("password") String password, RedirectAttributes re) {
 	  try { 
-		  System.out.println("id:"+id);
 		  boolean cuserid = usersService.checkuserid(id); //개인 테이블 아이디 확인
 		  boolean cbusinessid = usersService.businessidCheck(id); // 업체 테이블 아이디 확인
-		  System.out.println("cuserid:"+cuserid);
-		  System.out.println("cbusinessid:"+cbusinessid);
 		  if(cuserid) {//개인 테이블에 아이디가 있을 때
 		  usersService.changePass(id, password); //비밀번호 변경
 	  	  }else if(cbusinessid) {//업체 테이블에 아이디가 있을 때

@@ -100,7 +100,6 @@ public class ChatRoomService implements ChatRoomDAO {
 
 		String fileName = ino + "_" + chatno + ".txt";
 		String pathName = fileUploadPath + fileName;
-		System.out.println("createFile:" + pathName);
 		//File 클래스에 pathName 할당
 		File txtFile = new File(pathName);
 		//로컬경로에 파일 생성
@@ -136,7 +135,6 @@ public class ChatRoomService implements ChatRoomDAO {
 		String senderName = chatRoom.getSenderName();
 		String senderId = chatRoom.getSenderId();
 		String sendTime = chatRoom.getSendTime();
-		System.out.println("print:" + content);
 		
 		String writeContent = senderName + "\n" + content + "\n" + "[" +  sendTime + "]" + "\n";
 		
@@ -145,9 +143,6 @@ public class ChatRoomService implements ChatRoomDAO {
 		fos.write(b);
 		fos.close();
 		
-		System.out.println("senderName: "+ senderName);
-		System.out.println("sellerName: "+ chatRoom.getSellerName());
-		System.out.println(senderName.equals(chatRoom.getSellerName()));
 		if (senderName.equals(chatRoom.getSellerName())) {
 			updateChatReadBuy(chatRoom.getChatno(), 0);
 		} else {

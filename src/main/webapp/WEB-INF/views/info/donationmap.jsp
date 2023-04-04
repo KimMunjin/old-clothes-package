@@ -390,7 +390,6 @@ input[type=radio] {
 	  //주소 리스트를 받을 배열
     var addressArray = [];
     var wishList = $('.alladdress'); //주소를 리스트에 담아온다.
-	console.log("wishList  : " + wishList.length);
 	for(var i=0; i< wishList.length; i++){ //길에 맞게 groupAddress에 담는다 순서대로
 	   addressArray.push(
             {'groupAddress' : $("input[name=alladdress]").eq(i).val(), //주소
@@ -403,7 +402,6 @@ input[type=radio] {
 	
 	//비워져있는 목록에 기본 문구
 	$(document).ready(function(){		
-		console.log("adddresss : " + addressArray.length);		
 		for(var i =0; i<addressArray.length; i++){
 			 var alladdress = addressArray[i].groupAddress; 
 	         var alllngx = addressArray[i].lngx;
@@ -411,7 +409,6 @@ input[type=radio] {
 	         var allname = addressArray[i].name;
 	         var allphone = addressArray[i].phone;
 	         var dnames = document.querySelectorAll("#dnames")[i].innerText;
-	         console.log("alladdress : " + dnames);
 	         
 	         getmultiAddr(alllaty,alllngx); //좌표를 함수에 전달
 	         function getmultiAddr(alllaty,allngx){
@@ -484,7 +481,6 @@ input[type=radio] {
 	});
 	//마커 삭제
 	function replay(){
-		console.log("호출된다");
 		for(var i = 0; i < markers1.length; i++){
 			markers1[i].setMap(null);		
 		}
@@ -581,7 +577,6 @@ input[type=radio] {
 			contentType: "application/json",		
 			<%--들어온 값을 지도 마커에 표시!--%>
 			success: function(data){
-				console.log("datalength:"+data.length);
 				$('#b').empty(); //리스트 나타나는 곳에 기존 데이터 있을 수 있으니 비우기
 				setMarkers2(null); //기존에 있는 마커 있으면 초기화
 				setInfo2(null); //기존에 있는 인포윈도우 초기화
@@ -591,12 +586,7 @@ input[type=radio] {
 				}
 				data.forEach(function(data,i){
 					
-				console.log("data : " + data.length);
-				console.log("i : " + i);
-				console.log("i lenght : " + i.length);
 				var ddno = data.dno;
-				console.log("dno : " + ddno);
-				console.log("찍히나 : " + data.daddress);
 				
 				dli += '<li class="listdnames" id="listmove" style="cursor:pointer;" ><br>';
 				dli += '<span id="bnames"><strong>기부업체명: '+data.dname +'</strong><br>';	
@@ -607,7 +597,6 @@ input[type=radio] {
 				
 					
 				var nonedata = data.daddress;
-				console.log("nonedata" +nonedata);
 				var donationaddress = data.daddress;
 				var donationname = data.dname;
 				var donationphone = data.dphone;
@@ -697,16 +686,12 @@ input[type=radio] {
 						var address = $('input[name=totaladdress]').val();
 						//var address1 = document.getElementById('totaladdress').value;
 											
-						console.log("total address : " +  address);
-						//console.log("total address : " +  address1);
 						//추출한 좌료를 통해 도로명 주소 추출
 						var contentadd = document.getElementById('dongName').value;
 						var contentfinal = '<div style="width:100%; padding:5px;">'+contentadd+'</div>';
 						var lat = result[0].y;
 						var lng = result[0].x;
 						var daddress = $('input[name=totaladdress]').val();								
-						console.log("lat: " + lat);	
-						console.log("lng: " + lng);
 						getAddr(lat,lng);
 						function getAddr(lat,lng){
 							//주소=>좌표 전환 객체 선언
@@ -719,8 +704,6 @@ input[type=radio] {
 								}
 							}
 							geocoder.coord2Address(coord.getLng(),coord.getLat(),callback);
-							console.log(result);
-							console.log(coord.getLat());
 						}
 						//결과값으로ㅗ 받은 위치를 마커로 표시
 						var marker = new kakao.maps.Marker({

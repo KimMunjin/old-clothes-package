@@ -63,7 +63,6 @@ public class FreeController {
 			articleList = freeService.getFreeList(page,pageInfo);
 			}
 			mav.addObject("articleList", articleList);
-			System.out.println("areticleList"+articleList.toString());
 			mav.addObject("kwd", kwd);
 			mav.addObject("pageInfo", pageInfo);
 			mav.setViewName("/free/freeList");
@@ -89,9 +88,7 @@ public class FreeController {
 	@PostMapping("/freeInsert")
 	public ModelAndView boardwrite(@ModelAttribute Free free,
 			HttpSession session,Model model ) {//값을 전부 받아온다.
-		System.out.println("들어옴");
 		ModelAndView mav = new ModelAndView(); // 뷰 데이터 동시 설정 가능함
-		System.out.println("freeinsert : " + free.getFcontent());
 		
 		try {
 			if (session.getAttribute("authUser").getClass().getName().equals("com.kosta.clothes.bean.Users")){
@@ -100,13 +97,11 @@ public class FreeController {
 				
 				String nickname=users.getNickname();
 				free.setFname(nickname);
-				System.out.println("users:"+free);
 			}else {
 				Business user = (Business)session.getAttribute("authUser");
 				free.setBno(user.getBno());
 				String nickname=user.getBname();
 				free.setFname(nickname);
-				System.out.println("business"+free);
 			}
 				
 			freeService.registFree(free); // board에 저장된 값을 Service에 있는 registBoard에 넘겨준다
@@ -123,13 +118,10 @@ public class FreeController {
 	   @GetMapping("freeView/{fno}")
 	   public ModelAndView freeView(@PathVariable("fno") Integer fno,@RequestParam(value = "kwd", required = false) String kwd,
 	         @RequestParam(value = "page", required = false, defaultValue = "1") Integer page, Model model) {
-	      System.out.println("들어옴");
-	      System.out.println("page:"+page);
 	      ModelAndView mav = new ModelAndView();      
 	      try {
 	    	  if(session.getAttribute("authUser")!=null) {//사용자가 로그인 했을 때 
 		         if(session.getAttribute("authUser").getClass().getName().equals("com.kosta.clothes.bean.Users")){
-			            System.out.println("들어옴11");
 			            Users users = (Users)session.getAttribute("authUser");
 			            if(users==null) {
 			               model.addAttribute("logincheck", "false");//로그인했는지 여부-?jsp로      
@@ -141,7 +133,6 @@ public class FreeController {
 				        mav.addObject("kwd", kwd);
 				        mav.setViewName("/free/freeView");
 		         }else if(session.getAttribute("authUser").getClass().getName().equals("com.kosta.clothes.bean.Business")){ //사업자가 로그인 했을 때 
-			            System.out.println("B들어옴");
 			            Business bauthuser=new Business();			            
 			            bauthuser = (Business)session.getAttribute("authUser");
 			            Free free1 = freeService.Freehit(fno);
@@ -159,7 +150,6 @@ public class FreeController {
 				        mav.setViewName("/free/freeView");
 		         }
 	    	  }else {
-	    		   System.out.println("여기맞냐고오");
 	    		   Free free1 = freeService.Freehit(fno);
 			        Free free = freeService.getFree(fno);			        
 			        mav.addObject("article", free);
@@ -219,10 +209,8 @@ public class FreeController {
 	@GetMapping("/modifyform/{fno}")
 	public ModelAndView freeModify(@PathVariable("fno") String fno) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("들어옴?");
 		try {
 			Free free = freeService.getFree(Integer.parseInt(fno));
-			System.out.println("여기여기:"+free.toString());
 			mav.addObject("article",free);
 			mav.setViewName("/free/freeModify");
 		}catch(Exception e) {
@@ -237,7 +225,6 @@ public class FreeController {
 	public ModelAndView freeModify(@ModelAttribute Free free,
 			@RequestParam("fcontent") String fcontent,
 			@PathVariable("fno") String fno) {
-		System.out.println("수정하기 : " + free.toString());
 		ModelAndView mav = new ModelAndView();
 		try {
 			free.setFno(Integer.parseInt(fno));
@@ -258,7 +245,6 @@ public class FreeController {
 	public ModelAndView freeDelete(@RequestParam("fno") String fno,Model model){
 		ModelAndView mav = new ModelAndView();
 		try {
-			System.out.println("삭제 : " + fno);
 			freeService.freecmtDel(Integer.parseInt(fno));
 			freeService.freeDelete(Integer.parseInt(fno));
 			mav.setViewName("redirect:/freeList");
@@ -280,7 +266,6 @@ public class FreeController {
 				try {
 					if(session.getAttribute("authUser")!=null) {
 						if(session.getAttribute("authUser").getClass().getName().equals("com.kosta.clothes.bean.Users")){
-							System.out.println("개인댓글");
 							Integer userno = no;
 							Users users = (Users)session.getAttribute("authUser");
 							comments.setFno(fno);
@@ -290,10 +275,8 @@ public class FreeController {
 							commentService.registUcomment(comments, fno);					
 							mav.setViewName("redirect:/freeView/"+fno);
 						}else if(session.getAttribute("authUser").getClass().getName().equals("com.kosta.clothes.bean.Business")){
-							System.out.println("업체댓글");
 							Integer bno = no;
 							Business business = (Business)session.getAttribute("authUser");
-							System.out.println("sect : " + business.getSect());
 							String sect = business.getSect();
 							comments.setFno(fno);
 							comments.setBno(bno);
@@ -376,7 +359,6 @@ public class FreeController {
 								   @RequestParam("ccontent") String ccontent,
 								   @PathVariable("fno") Integer fno,
 								   @PathVariable("cno") Integer cno) {
-		System.out.println("수정 완료이동중");
 		ModelAndView mav = new ModelAndView();
 	    try {
 	    	comments.setFno(fno);
@@ -398,11 +380,8 @@ public class FreeController {
 	@PostMapping("/cmtDelete/{cno}/{fno}")
 	public ModelAndView cmtDelete(@PathVariable("cno") Integer cno,
 			@PathVariable("fno") Integer fno,Model model){
-		System.out.println("댓글 삭제 : ");
 		ModelAndView mav = new ModelAndView();
 		try {
-			System.out.println("삭제2 : " + fno);
-			System.out.println("삭제 : " + cno);
 			commentService.CmtDelete(cno,fno);
 			mav.setViewName("redirect:/freeView/"+fno);
 		}catch(Exception e) {
@@ -415,14 +394,12 @@ public class FreeController {
 	@RequestMapping("/list/{fno}") //댓글 리스트
     @ResponseBody
     private List<Comments> mCommentServiceList(@PathVariable("fno") Integer fno, Model model) throws Exception{
-        System.out.println("댓글리스트 ");
         return commentService.selectComments(fno);
     }
 	//대댓글
 	@PostMapping("/replycomment/{fno}/{num}/{cno}")
 	@ResponseBody
 	public boolean replycomment(@PathVariable("fno")Integer fno, @PathVariable("num") Integer no, @PathVariable("cno")Integer cno, @ModelAttribute Comments comments) throws Exception{
-		System.out.println("대댓글 등록");
 		if(session.getAttribute("authUser").getClass().getName().equals("com.kosta.clothes.bean.Users")){
 			Users users = (Users)session.getAttribute("authUser");
 			comments.setCname(users.getNickname());
@@ -432,7 +409,6 @@ public class FreeController {
 			comments.setCname(business.getBname());
 			comments.setCsect(business.getSect());
 		}
-		System.out.println(comments);
 		return commentService.replycommentfree(fno, no, cno, comments);
 	}
 	

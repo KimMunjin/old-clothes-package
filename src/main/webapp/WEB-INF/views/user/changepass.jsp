@@ -22,8 +22,6 @@ function isSame(){
 	var checkPwd = document.getElementById("password");
 	var checkPwd1 = document.getElementById("pcheckpassword");
 
-	console.log(password);
-	console.log(checkpass);
 	
 	if(document.getElementById('password').value != '' && document.getElementById('pcheckpassword').value != ''){
 		if(document.getElementById('password').value == document.getElementById('pcheckpassword').value){

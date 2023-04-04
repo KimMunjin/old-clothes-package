@@ -444,7 +444,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 				if(authsect != 'business'){
 					bli += '<button class="buttonapply'+data.bno+'" id="applymodal" data-value="'+data.bno+'"><img class="apply" title="신청서 작성" src="/static/image/apply.png" /></button>'; //신청서 작성 form [modal]	
 				}			
-				console.log(data.bstar +"별점");
 				bli += '<div id="totalstar" class="totalstar">';
 				bli += '<div id="star"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"></div>' // 별점
 				bli += '<div id="starEnd" style="width:'+(data.bstar/5)*100+'%;"><img src="/static/image/star.png"><img src="/static/image/star.png"><img src="/static/image/star.png"><img src="/static/image/star.png"><img src="/static/image/star.png"></div>' // 별점
@@ -487,8 +486,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 				        var lat = result[0].y;
 						var lng = result[0].x;
 														
-						console.log("업체lat: " + lat);	
-						console.log("업체 lng: " + lng);
 				     // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
 				        var iwContent = '<div style="width:100%; padding:5px;box-sizing:content-box;">' +
 				        				'<div style="margin-bottom:10px;">상호명 : '+ businname + '</div>' + 
@@ -616,16 +613,12 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 				var address = $('input[name=totaladdress]').val();
 				//var address1 = document.getElementById('totaladdress').value;
 									
-				console.log("total address : " +  address);
-				//console.log("total address : " +  address1);
 				//추출한 좌료를 통해 도로명 주소 추출
 				var contentadd = document.getElementById('dongName').value;
 				var contentfinal = '<div style="width:100%; padding:5px;box-sizing:content-box;">'+contentadd+'</div>';
 				var lat = result[0].y;
 				var lng = result[0].x;
 				var daddress = $('input[name=totaladdress]').val();								
-				console.log("lat: " + lat);	
-				console.log("lng: " + lng);
 				getAddr(lat,lng);
 				function getAddr(lat,lng){
 					//주소=>좌표 전환 객체 선언
@@ -638,8 +631,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 						}
 					}
 					geocoder.coord2Address(coord.getLng(),coord.getLat(),callback);
-					console.log(result);
-					console.log(coord.getLat());
 				}
 				//결과값으로ㅗ 받은 위치를 마커로 표시
 				var marker = new kakao.maps.Marker({
@@ -673,7 +664,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 			var targetElement = e.target;	
 			//let bno = businbno;
 			let bno = targetElement.getAttribute('alt');			
-			console.log(bno + "gnmng");					
 			if(logincheck == "false") {
 				alert("로그인 후 이용해주세요.");
 				location.href="/login";
@@ -683,14 +673,13 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 					url: "/businessinfo/likes",
 					data: {bno:bno},
 					success: function(data) {
-						console.log("좋아요 수 : " + data);
 						if(data == 1) {
 							targetElement.setAttribute("src", "/static/image/redheart.png");							
 						} else {
 							targetElement.setAttribute("src", "/static/image/heart.png");							
 						}
 					}, error: function() {
-		                console.log('바보야!');
+		                console.log('에러');
 					}
 				})
 			});			
@@ -722,7 +711,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 	//카테고리별 리스트 출력
 	function catelist(){
 		let category = $("#catelist option:selected").val(); //selectbox에서 sido 선택값
-		console.log("마지막: " + category);
 		 $.ajax({
 				type: 'post',
 				url: 'categoryb',
@@ -760,7 +748,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 				if(authsect != 'business'){
 					bli += '<button class="buttonapply'+data.bno+'" id="applymodal" data-value="'+data.bno+'"><img class="apply" title="신청서 작성" src="/static/image/apply.png" /></button>'; //신청서 작성 form [modal]	
 				}			
-				console.log(data.bstar +"별점");
 				bli += '<div id="totalstar" class="totalstar">';
 				bli += '<div id="star"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"><img src="/static/image/binstar.png"></div>' // 별점
 				bli += '<div id="starEnd" style="width:'+(data.bstar/5)*100+'%;"><img src="/static/image/star.png"><img src="/static/image/star.png"><img src="/static/image/star.png"><img src="/static/image/star.png"><img src="/static/image/star.png"></div>' // 별점
@@ -805,8 +792,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 					        var lat = result[0].y;
 							var lng = result[0].x;
 															
-							console.log("업체lat: " + lat);	
-							console.log("업체 lng: " + lng);
 					     // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
 					        var iwContent = '<div style="width:100%; padding:5px;box-sizing:content-box;">' +
 					        				'<div style="margin-bottom:10px;">상호명 : '+ businname + '</div>' + 
@@ -906,7 +891,6 @@ body, div, ul, li, h1, h2, h3, h4, h5, p{
 					})//geocoder 
 				}); //data.forEach							
 				$('#blist').append(bli); //binlist 위치에 받아온 리스트 출력
-				console.log(markers2);			
 			},	
 			error: function(){alert("구,동 검색 먼저해주세요.");}
 			});

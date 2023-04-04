@@ -49,13 +49,11 @@ public class ChatApplicationController {
 		chatRoom.setBuyerno(buyerno);
 		chatRoom.setBuyerName(buyerName);
 		
-		System.out.println("chatRoom: " + chatRoom);
 		
 		//이미 chatRoom이 만들어져있는지 확인
 		if (chatRoomService.countByChatId(chatRoom.getIno(), chatRoom.getBuyerno()) > 0) {
 			//get ChatRoomInfo
 			ChatRoom chatRoomTemp = chatRoomService.findByChatId(chatRoom.getIno(), chatRoom.getBuyerno());
-			System.out.println("chatroomtemp:" + chatRoomTemp);
 			//load existing chat history
 			List<ChatRoom> chatHistory = chatRoomService.readChatHistory(chatRoomTemp);
 			//transfer chatHistory Model to View
@@ -79,7 +77,6 @@ public class ChatApplicationController {
 	
 	@MessageMapping("/broadcast")
 	public void send(ChatRoom chatRoom) throws IOException {
-		System.out.println("chatControlle1:" + chatRoom);
 		chatRoom.setSendTime(TimeUtils.getCurrentTimeStamp());
 		//append message to txtFile
 		chatRoomService.appendMessage(chatRoom);
@@ -87,7 +84,6 @@ public class ChatApplicationController {
 		Integer chatno = chatRoom.getChatno();
 		String url = "/user/" + chatno + "/queue/messages";
 		simpMessage.convertAndSend(url, new ChatRoom(chatRoom.getContent(), chatRoom.getSenderName(), chatRoom.getSendTime(), chatRoom.getSenderId())); 
-		System.out.println("chatController2:" + chatRoom);
 	}
 	
 	@ResponseBody
@@ -97,7 +93,6 @@ public class ChatApplicationController {
 		String idStr = (String) jsn.get("chatno");
 		int chatno = Integer.parseInt(idStr);
 		String flag = (String) jsn.get("flag");
-		System.out.println("flag:" + flag);
 		if (flag.equals("sell")) {
 			chatRoomService.updateChatReadSell(chatno, 1);
 		} else {
@@ -129,14 +124,11 @@ public class ChatApplicationController {
 	@RequestMapping(value="/chatRoom/{ino}/{buyerno}", method=RequestMethod.GET)
 	public String getChatRoom(@PathVariable Map<String, Integer> requestVar,
 			Model model) throws IOException {
-		System.out.println("buyerno and ino1"+requestVar);
 		Integer buyerno = Integer.parseInt(String.valueOf(requestVar.get("buyerno")));
 		Integer ino = Integer.parseInt(String.valueOf(requestVar.get("ino")));
-		System.out.println("buyerno and ino2"+buyerno + ino);
 			
 		//read chatHistory
 		ChatRoom chatRoomRead = chatRoomService.findByChatId(ino, buyerno);
-		System.out.println("chatRoom:"+chatRoomRead);
 		List<ChatRoom> chatHistory = chatRoomService.readChatHistory(chatRoomRead);
 		model.addAttribute("chatHistory", chatHistory);
 		
@@ -237,7 +229,6 @@ public class ChatApplicationController {
 		 JSONObject jsnResult = new JSONObject();
 		 jsnResult.put("chatList", ja);
 		 String result = jsnResult.toString();
-		 System.out.println("chatResult toString: " + result);
 		
 		 return result;
 	}

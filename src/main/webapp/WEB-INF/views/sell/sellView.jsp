@@ -284,14 +284,11 @@ var captionText = document.getElementById("caption");
 if(img != null) {
 	$(document).on("click","#myImg",function(){
 		modal.style.display = "block";
-		console.log("modalImg.src :"+modalImg.src);
 		modalImg.src = this.src;
-		console.log("this.src :"+modalImg.src);
 		captionText.innerHTML = this.alt;
 	})
 }
 var files = "${files[1]}";
-console.log(modalImg);
 
 //Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
@@ -306,10 +303,6 @@ var auth = "${authUser.sect}";
 var userno = $('#userno').val();
 var ino = $('#ino').val();
 var cno = $('#cno').val();
-console.log("댓글 번호 : " + cno);
-console.log("무료나눔 번호 : " + ino);
-console.log("로그인한 유저 : " + auth);
-console.log("사용자 로그인 한 번호 : " + userno);
 
 //리스트 뿌려주기 
 $(document).ready(function(){
@@ -328,7 +321,6 @@ $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
 //댓글 등록[사용자]
 function commentInsert(insertData){
 	 var userno = $('#userno').val();
-	 console.log("댓글 등록");
 	    $.ajax({
 	        url : '/sellView/'+ino+'/'+userno,
 	        type : 'post',
@@ -344,7 +336,6 @@ function commentInsert(insertData){
 
 //댓글 목록 
 function commentList(){
-	 console.log("댓글리스트");
     $.ajax({
         url : '/Ilist/'+ino,
         type : 'get',
@@ -373,7 +364,6 @@ function commentList(){
 
 //댓글 삭제 
 function commentDelete(cno){
-	console.log("삭제할 번호 : " + cno);
 	var result = confirm("삭제하시겠습니까? 삭제 후 취소가 불가능합니다.");
 	if(result){
 	     $.ajax({
@@ -404,8 +394,6 @@ function commentUpdate(cno, ccontent){
 function commentUpdateProc(cno){
     var updateContent = $('[name=ccontent_'+cno+']').val();
     var result = confirm("수정하시겠습니까??");
-    console.log("수정할 cno : " + cno);
-    console.log("수정할 내용 : " + updateContent);
     if(result){
 	     $.ajax({
 	         url : "/sellcmtModify/"+cno + "/" +ino,
@@ -440,14 +428,12 @@ $(function () {
 		}
 	})	
 	$("#heart_img").on("click", function(e) {
-		console.log('들어오니?');
 		var logincheck = "${logincheck}";
 		const ino =  $('#ino').val();
 		if(logincheck == "false") {
 			alert("로그인 후 이용해주세요.")
 			location.href="/login";
 		} else {
-			console.log(ino);
 		}
 		let sect = "${sect}";
 		if(sect == 'users') {
@@ -456,14 +442,13 @@ $(function () {
 				url: "/sellView/likes",
 				data: {ino:ino},
 				success: function(data) {
-					console.log(data);
 					if(data == 1) {
 						$("#heart_img").attr("src", "/static/image/redheart.png");
 					} else {
 	                    $("#heart_img").attr("src", "/static/image/heart.png");
 					}
 				}, error: function() {
-                    console.log('바보야!')
+                    console.log('에러')
 				}
 			})
 		}
@@ -514,20 +499,16 @@ $("#wapply").on("click", function() {
 	var logincheck = "<c:out value='${logincheck}'/>";
 	const ino =  $('#ino').val();
 	sect = "${authUser.sect}";
-	console.log(sect);
 	if(logincheck == "false") {
 		alert("로그인 후 이용해주세요.");
 		location.href="/login";
 	} else if(sect == 'users'){
-		console.log(ino);
 		$.ajax({
 			type: "post",
 			url: "/sellView/wapply",
 			data: {ino:ino},
 			success: function(data) {
 				apply = data;
-				console.log(data);
-				console.log("apply:"+apply);
 				if(apply == "true") {
 					alert("신청이 완료되었습니다.");
 					location.reload(true);

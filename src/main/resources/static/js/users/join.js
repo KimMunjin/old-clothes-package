@@ -33,7 +33,6 @@ $(function(){
 	 var engid = /^[a-zA-Z0-9]*$/;
      var checkuserid =$('#userid').val();
      var checkPid = document.getElementById("userid");
-     console.log(checkPid.value.length);
      $.ajax({
         type : "post",
         url : "/checkuserid",
@@ -69,7 +68,6 @@ $(function(){
 	 var bengid = /^[a-zA-Z0-9]*$/;
      var businessid =$('#businessid').val();
      var checkBid = document.getElementById("businessid");
-     console.log(businessid.value);
      $.ajax({
         type : "post",
         url : "/businessid",
@@ -105,10 +103,8 @@ $(function(){
 	
    $('#nicknamecheck').click(function(){
 	  var checknick = document.getElementsByName("check_nick");
-	  console.log(checknick.value);
       var nickname =$('#nickname').val(); //사용자가 입력한 id값 
       var checkPname = document.getElementById("nickname");
-      console.log(nickname);
       $.ajax({
          type : "post",
          url : "/nickname",
@@ -141,7 +137,6 @@ $(function(){
    $('#brandnamecheck').click(function(){
       var bname =$('#bname').val(); //사용자가 입력한 id값 
       var checkBname = document.getElementById("bname");
-      console.log(bname);
       $.ajax({
          type : "post",
          url : "/bname",
@@ -200,7 +195,7 @@ $(function(){
 					}else{
 					authCode.attr('value', response);	// authCode의 속성 value값을 인증번호로 설정
 					console.log("input태그에 담긴 인증번호: " + authCode.val());	// 확인용
-					alert('인증 번호가 발송 되었습니다.');
+					alert('인증 번호가 발송 되었습니다. 유로기능이므로 다음 코드를 입력해주세요:'+authCode.val());
 					startCountdown();
 					}
 				},
@@ -225,8 +220,6 @@ $(function(){
 	let authNumbers = document.getElementById("authNumber");
 	$(document).on('click', '#confirmBnt', function () {
 			// 인증번호가 공백이 아니고 0 이상일 경우
-			console.log("text에 사용자가 입력한 인증 번호 : " + authNumbers.value);
-			console.log("coolsms에서 받아온 인증 번호 : " + authCode.val());
 			if (authNumbers.value !='' && parseInt(authNumbers.value)>0) {	// val()로 받으면 문자열이기 때문에 형변환
 				if(authNumbers.value == authCode.val()){
 					cnfCheck = true;
@@ -287,7 +280,6 @@ $(function(){
 	$(document).on('click','#bgoSMS', function () {		// 버튼을 클릭 했을 경우
 		let bphone = $('#bphone').val();	// 사용자가 입력한 전화번호
 		let authCode= $("#bauthCode");	//휴대폰 인증번호 담을 변수
-		console.log(bphone);
 		// 사용자가 입력한 전화번호가 공백이 아니고, 8자리 이상일 경우
 		if (bphone != '' && bphone.length == 11) {
 			$('#bconfirmBnt').show();
@@ -305,7 +297,7 @@ $(function(){
 					}else{
 					authCode.attr('value', response);	// authCode의 속성 value값을 인증번호로 설정
 					console.log("input태그에 담긴 인증번호: " + authCode.val());	// 확인용
-					alert('인증 번호가 발송 되었습니다.');
+					alert('인증 번호가 발송 되었습니다. 유로기능이므로 다음 코드를 입력해주세요:'+authCode.val());
 					startCountdown1();
 					}
 				},
@@ -382,8 +374,6 @@ function isSame(){
 	var checkPwd = document.getElementById("password");
 	var checkPwd1 = document.getElementById("pcheckpassword");
 
-	console.log(password);
-	console.log(checkpass);
 	
 	if(document.getElementById('password').value != '' && document.getElementById('pcheckpassword').value != ''){
 		if(document.getElementById('password').value == document.getElementById('pcheckpassword').value){
@@ -407,8 +397,6 @@ function isSame1(){
 	var checkpass = document.getElementById('b_checkpassword');
 	var checkPwd2 = document.getElementById("bpassword");
 	var checkPwd3 = document.getElementById("b_checkpassword");
-	console.log(password);
-	console.log(checkpass);
 	
 	if(document.getElementById('bpassword').value != '' && document.getElementById('b_checkpassword').value != ''){
 		if(document.getElementById('bpassword').value == document.getElementById('b_checkpassword').value){

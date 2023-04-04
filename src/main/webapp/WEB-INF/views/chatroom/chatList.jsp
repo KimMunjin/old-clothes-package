@@ -51,7 +51,6 @@
 				contentType: "application/json",
 				//전달을 성공했을때 Controller로부터 data를 return 받아 처리해주는 메서드	
 				success: function(data) {
-					 console.log("data.length"+data.length)
 					 if(data.length<=15){
 						 alert("채팅 내역이 없습니다.")
 						 window.close();

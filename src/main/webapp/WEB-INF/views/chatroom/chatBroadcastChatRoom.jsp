@@ -195,10 +195,6 @@
 		
 		function createTextNode(messageObj) {
 			console.log("createTextNode");
-			console.log("messageObj: " + messageObj.content);
-			console.log("buyername:" + buyerName);
-			console.log("sellername:" + sellerName);
-			console.log("senderName:" + messageObj.senderName);
 			if(messageObj.senderName==senderName) {
 				return '<div class="chat-item chat-item-me"><div class="message"><span class="message__user-name" id="chatRoomSenderName">' +
 				messageObj.senderName +
@@ -234,7 +230,6 @@
 		<%-- 읽음처리 --%>
 		function ajaxChatRead(chatno, reader) {
 			console.log("ajaxChatread");
-			console.log(reader);
 			var flag = "";
 			if (reader == buyerName) {
 				flag = "buy";

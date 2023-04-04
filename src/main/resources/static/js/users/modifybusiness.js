@@ -9,7 +9,6 @@ $(function(){
   $('#b_businessidcheck').click(function(){
      var businessid =$('#businessid').val();
      var checkBid = document.getElementById("businessid");
-     console.log(businessid.value);
      $.ajax({
         type : "post",
         url : "/businessid",
@@ -45,7 +44,6 @@ $(function(){
       var bname =$('#bname').val(); //사용자가 입력한 id값 
       var checkBname = document.getElementById("bname");
       var hidden = document.getElementById("check_bid").value;
-      console.log(bname);
       $.ajax({
          type : "post",
          url : "/bname",
@@ -87,7 +85,6 @@ $(function(){
 	$(document).on('click','#bgoSMS', function () {		// 버튼을 클릭 했을 경우
 		let bphone = $('#bphone').val();	// 사용자가 입력한 전화번호
 		let authCode= $("#bauthCode");	//휴대폰 인증번호 담을 변수
-		console.log(bphone);
 		// 사용자가 입력한 전화번호가 공백이 아니고, 8자리 이상일 경우
 		if (bphone != '' && bphone.length > 8) {
 			$.ajax({
@@ -101,7 +98,7 @@ $(function(){
 					authCode.attr('value', response);	// authCode의 속성 value값을 인증번호로 설정
 					console.log("input태그에 담긴 인증번호: " + authCode.val());	// 확인용
 	
-					alert('인증 번호가 발송 되었습니다.');
+					alert('인증 번호가 발송 되었습니다. sms는 유료기능이므로 다음 코드를 입력해주세요:' + authCode.val());
 					}
 				},
 				error: function(response) {
@@ -142,8 +139,6 @@ function isSame1(){
 	var checkpass = document.getElementById('b_checkpassword');
 	var checkPwd2 = document.getElementById("bpassword");
 	var checkPwd3 = document.getElementById("b_checkpassword");
-	console.log(password);
-	console.log(checkpass);
 	
 	if(document.getElementById('bpassword').value != '' && document.getElementById('b_checkpassword').value != ''){
 		if(document.getElementById('bpassword').value == document.getElementById('b_checkpassword').value){

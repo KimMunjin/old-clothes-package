@@ -27,7 +27,6 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	public String submitMessage(MessageVO message, String sect) throws Exception {
 
-		System.out.println("messageservice:" + sect);
 		if(sect.equals("users")) {
 			messageDAO.insertMessage(message);
 		} else {
@@ -60,7 +59,6 @@ public class MessageServiceImpl implements MessageService{
 		
 		//검색한 페이지의 시작 페이지 값을 구한 변수 
 		int row = (page - 1) * 10 + 1; //ex) (5페이지 -1) * 10 + 1 => 41
-		System.out.println("row:"+row);
 		map.put("row", row);
 		return messageDAO.uRecvMessage(map);
 	}
@@ -69,7 +67,6 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageVO> bRecvMessage(Map map) throws Exception { //사업자가 받은 쪽지함
 		int listCount = messageDAO.selectBRmessageCount((Integer)map.get("recvUserno")); //전체 데이터 개수 가져오기 (전체 게시글 수)
 		listCount += messageDAO.selectBRBmessageCount((Integer)map.get("recvUserno"));
-		System.out.println("listcount"+listCount);
 		int maxPage = (int)Math.ceil((double)listCount/10);
 		PageInfo rpageInfo = new PageInfo();
 		rpageInfo = (PageInfo) map.get("pageInfo");
@@ -89,7 +86,6 @@ public class MessageServiceImpl implements MessageService{
 		
 		//검색한 페이지의 시작 페이지 값을 구한 변수 
 		int row = (page - 1) * 10 + 1; //ex) (5페이지 -1) * 10 + 1 => 41
-		System.out.println("row:"+row);
 		map.put("row", row);
 		return messageDAO.bRecvMessage(map);
 	}
@@ -117,7 +113,6 @@ public class MessageServiceImpl implements MessageService{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("row", row);
-		System.out.println("srow:"+row);
 		map.put("sendUserno", sendUserno);
 		map.put("spageInfo", spageInfo);
 		return messageDAO.uSendMessage(map);
@@ -127,7 +122,6 @@ public class MessageServiceImpl implements MessageService{
 	public List<MessageVO> bSendMessage(Integer sendUserno, Integer spage, PageInfo pageInfo) throws Exception {//사업자가 보낸 쪽지함
 		int listCount = messageDAO.selectBSmessageCount(sendUserno); //전체 데이터 개수 가져오기 (전체 게시글 수)
 		listCount += messageDAO.selectBSBmessageCount(sendUserno);
-		System.out.println("bsendlistcount:"+listCount);
 		int maxPage = (int)Math.ceil((double)listCount/10);  
 		int startPage = spage/10 * 10 + 1; 
 		int endPage = startPage + 10 -1; 
@@ -147,7 +141,6 @@ public class MessageServiceImpl implements MessageService{
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("row", row);
-		System.out.println("bsend srow:"+row);
 		map.put("sendUserno", sendUserno);
 		map.put("spageInfo", pageInfo);
 		return messageDAO.bSendMessage(map);

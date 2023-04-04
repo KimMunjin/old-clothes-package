@@ -231,15 +231,12 @@
 		/* 개인판매 거래취소 */
 		$('.cancel3').click(function(){
 			var index = $('.sellList').index($(this).parent().parent());
-			console.log(index);
 			var ino = $(".card2:eq("+index+")").attr("data-sno");
 			$.ajax({
 				type : "get",
 				url : "/cancelDeal",
 				data : {ino:ino},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -252,15 +249,12 @@
 		/* 무료나눔 거래취소 */
 		$('.cancel4').click(function(){
 			var index = $('.sharingList').index($(this).parent().parent());
-			console.log(index);
 			var sno = $(".sharingcard2:eq("+index+")").attr("data-sno");
 			$.ajax({
 				type : "get",
 				url : "/cancelSharingDeal",
 				data : {sno:sno},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -272,7 +266,6 @@
 		
 		/* 개인판매 거래완료 */
 		$('.complete3').click(function(){
-			console.log($(this).parent().parent());
 			var index = $('.sellList').index($(this).parent().parent());
 			$(this).attr("disabled", true);
 			var ino = $(".card2:eq("+index+")").attr("data-sno");
@@ -281,7 +274,6 @@
 				url : "/completeSeDeal",
 				data : {ino:ino},
 				success : function(data) {
-					console.log(data);
 					location.reload();
 				},
 				error : function(err) {
@@ -293,7 +285,6 @@
 		
 		/* 무료나눔 거래완료 */
 		$('.complete4').click(function(){
-			console.log($(this).parent().parent());
 			var index = $('.sharingList').index($(this).parent().parent());
 			$(this).attr("disabled", true);
 			var sno = $(".sharingcard2:eq("+index+")").attr("data-sno");
@@ -302,8 +293,6 @@
 				url : "/completeShDeal",
 				data : {sno:sno},
 				success : function(data) {
-					console.log(data);
-					console.log("성공");
 					location.reload();
 				},
 				error : function(err) {
@@ -339,8 +328,6 @@
 		var ino=0;
 		$('.review1').click(function(){
 			var reviewIndex = $('.sellList').index($(this).parent().parent());
-			console.log($(this).parent().parent());
-			console.log(reviewIndex);
 			ino = $(".card2:eq("+reviewIndex+")").attr("data-sno");
 			$('#demo-modal').css('visibility','visible');
 			$('#demo-modal').css('opacity','1');
@@ -366,7 +353,6 @@
 						content:content,
 						ino:ino},
 				success : function(data) {
-					console.log(data);
 					location.reload();
 				},
 				error : function(err) {
@@ -379,8 +365,6 @@
 		var sno=0;
 		$('.review').click(function(){
 			var reviewIndex = $('.sharingList').index($(this).parent().parent());
-			console.log($(this).parent().parent());
-			console.log(reviewIndex);
 			sno = $(".sharingcard2:eq("+reviewIndex+")").attr("data-sno");
 			$('#demo-modal2').css('visibility','visible');
 			$('#demo-modal2').css('opacity','1');
@@ -396,7 +380,6 @@
 						content:content,
 						sno:sno},
 				success : function(data) {
-					console.log(data);
 					location.reload();
 				},
 				error : function(err) {
@@ -410,7 +393,6 @@
 		
 		$(".buyProductSelect").change(function() {
 			var sect = $(".buyProductSelect option:selected").val();
-			console.log(sect);
 			if(sect == "개인 판매") {
 				$('.sharingCards1').hide();
 				$('.sharingPage1').hide();

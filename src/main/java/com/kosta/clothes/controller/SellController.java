@@ -76,11 +76,9 @@ public class SellController {
 	@GetMapping("/sellList")
 	public ModelAndView main(HttpServletRequest request, @RequestParam(value = "kwd", required = false) String kwd) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(kwd);
 		List<Sell> sellList;
 		try {
 			if (kwd != null && kwd != "") {
-				System.out.println("키워드있음");
 				sellList = sellService.getSellList(kwd);
 			} else {
 				sellList = sellService.getSellList();
@@ -90,7 +88,6 @@ public class SellController {
 					sellList.get(i).setIfileids(sellList.get(i).getIfileids().split(",")[0]);
 				}
 			}
-			System.out.println("컨트롤리스트:" + sellList);
 			mav.addObject("sellList", sellList);
 			mav.addObject("kwd", kwd);
 			mav.setViewName("/sell/sellList");
@@ -116,7 +113,6 @@ public class SellController {
 				sell.setUserno(users.getUserno());
 				sellService.registSell(sell, files);
 			}
-			System.out.println("sellregistcontroller:" + sell);
 			mav.setViewName("redirect:/sellList");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,11 +123,9 @@ public class SellController {
 	@GetMapping("/sellView/{ino}")
 	public ModelAndView viewSell(@PathVariable("ino") Integer ino, Model model,
 			@RequestParam(value = "submitcheck", required = false) String submitcheck) {
-		System.out.println("ino:" + ino);
 		ModelAndView mav = new ModelAndView();
 		try {
 			Sell sell = sellService.viewSell(ino);
-			System.out.println("sellview:" + sell);
 			Integer reviewcount = reviewService.reviewcount(sell.getUserno());
 			model.addAttribute("reviewcount", reviewcount);
 			if(sell.getIfileids() != null) {
@@ -225,8 +219,6 @@ public class SellController {
 			Sell sell = sellService.viewSell(ino);
 			mav.addObject("users",users);
 			mav.addObject("sell",sell);
-			System.out.println(sell);
-			System.out.println(users);
 			mav.addObject("ino",ino);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -241,7 +233,6 @@ public class SellController {
 			@PathVariable("userno") Integer userno,
 			@ModelAttribute Comments comments) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("개인판매댓글");
 		try {
 			Users users = (Users)session.getAttribute("authUser");
 			comments.setIno(ino);
@@ -274,7 +265,6 @@ public class SellController {
 			@RequestParam("iimageFile") MultipartFile[] files) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			System.out.println("modifysellcontroller: " + sell);
 			sellService.modifySell(sell);
 			sellService.modifyIfileids(sell, fileVo, files);
 			mav.setViewName("redirect:/sellView/" + sell.getIno());
@@ -318,14 +308,11 @@ public class SellController {
 			Sell sell = new Sell();
 			sell.setIno(ino);
 			likescheck = likesService.getIlikescheck(likes);
-			System.out.println("sellcontroller1:" + likes);
 			if(likescheck == null) {
 				likesService.registIlikes(likes);
 				sellService.upSellLikes(sell);
-				System.out.println("sellcontroller2:" + likes);
 			}else if(likescheck == 1) {
 				likes.setLikescheck(likesService.getIlikescheck(likes));
-				System.out.println("sellcontroller3:" + likesService.getIlikescheck(likes));
 				likesService.updateIlikes(likes);
 				sellService.downSellLikes(sell);
 			}else {
@@ -355,7 +342,6 @@ public class SellController {
 				message.setSendBno(bauthuser.getBno());
 				sect = bauthuser.getSect();
 			}
-			System.out.println("messagecontroller:" + message);
 			String submitcheck = messageService.submitMessage(message, sect);
 			if(submitcheck == "true") {
 				mav.addObject("submitcheck", "true");
@@ -408,17 +394,14 @@ public class SellController {
 		List<Sell> sellList = new ArrayList<>();
 		try {
 			if (keyword != null && keyword != "") {
-				System.out.println(keyword);
 				sellList = sellService.infiniteScrollDown(inoToStart, keyword);
 			} else {
 				sellList = sellService.infiniteScrollDown(inoToStart);
 			}
 
-			System.out.println("스크롤다운" + sellList);
 			for (int i = 0; i < sellList.size(); i++) {
 				if (sellList.get(i).getIfileids() != null) {
 					sellList.get(i).setIfileids(sellList.get(i).getIfileids().split(",")[0]);
-					System.out.println(sellList.get(i).getIfileids());
 				}
 			}
 		} catch (Exception e) {
@@ -435,8 +418,6 @@ public class SellController {
 				@PathVariable("ino") Integer ino,Model model){
 			ModelAndView mav = new ModelAndView();
 			try {
-				System.out.println("삭제2 : " + ino);
-				System.out.println("삭제 : " + cno);
 				commentService.sellCmtDelete(cno,ino);
 				mav.setViewName("redirect:/sellView/"+ino);
 			}catch(Exception e) {
@@ -455,7 +436,6 @@ public class SellController {
 									   @RequestParam("ccontent") String ccontent,
 									   @PathVariable("ino") Integer ino,
 									   @PathVariable("cno") Integer cno) {
-			System.out.println("수정 완료이동중");
 			ModelAndView mav = new ModelAndView();
 		    try {
 		    	comments.setIno(ino);
@@ -475,7 +455,6 @@ public class SellController {
 		@RequestMapping("/Ilist/{ino}") //댓글 리스트
 	    @ResponseBody
 	    private List<Comments> ICommentServiceList(@PathVariable("ino") Integer ino, Model model) throws Exception{
-	        System.out.println("댓글리스트 ");
 	        return commentService.selectCommentino(ino);
 	    }
 	

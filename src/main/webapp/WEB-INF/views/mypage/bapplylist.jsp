@@ -215,15 +215,11 @@
        status = targetElement.getAttribute("data-abtn1");
        usernos = targetElement.getAttribute("data-abtn2");
        anos = targetElement.getAttribute("data-abtn3");
-       console.log("status11 : " + status);
-       console.log("usernos : " + usernos);
-       console.log("anos : " + anos);
         applyupdate(status); //Insert 함수호출(아래)
    });
       
    
    function applyupdate(status){      
-       console.log("수거 신청");       
           $.ajax({
               url : '/bapply/'+anos+'/'+usernos,
               type : 'get',
@@ -250,15 +246,11 @@
        cstatus = targetElement.getAttribute("data-abtn4");
        cuserno = targetElement.getAttribute("data-abtn5");
        cano = targetElement.getAttribute("data-abtn6");
-       console.log("cstatus : " + cstatus);
-       console.log("cuserno : " + cuserno);
-       console.log("cano : " + cano);
         applydelete(cstatus); //Insert 함수호출(아래)
    });
      
    
    function applydelete(cstatus){      
-       console.log("수거 거절");       
           $.ajax({
               url : '/bapplydelete/'+cano+'/'+cuserno,
               type : 'get',
@@ -281,16 +273,12 @@
        status = targetElement.getAttribute("data-abtn1");
        usernos = targetElement.getAttribute("data-abtn2");
        anos = targetElement.getAttribute("data-abtn3");
-       console.log("status11 : " + status);
-       console.log("usernos : " + usernos);
-       console.log("anos : " + anos);
         applyend(status); //Insert 함수호출(아래)
    });
   
    function applyend(status){
 	      
 	      
-       console.log("수거 완료");       
           $.ajax({
               url : '/bapply/'+anos+'/'+usernos,
               type : 'get',

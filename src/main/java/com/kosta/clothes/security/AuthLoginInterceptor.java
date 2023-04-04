@@ -37,8 +37,6 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
     	}else if(bcheck){
     		String businessid = id;
 			String bpassword = password;
-			System.out.println("bid:"+businessid);
-    		System.out.println("password:"+bpassword);
     		bauthUser = usersService.blogin(businessid,bpassword);
     	}else {
     		response.sendRedirect("/loginfail");

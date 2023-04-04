@@ -88,7 +88,6 @@ public class SharingController {
 					sharingList.get(i).setSfileids(sharingList.get(i).getSfileids().split(",")[0]);
 				}
 			}
-			System.out.println("컨트롤리스트:" + sharingList);
 			mav.addObject("sharingList", sharingList);
 			mav.addObject("kwd", kwd);
 			
@@ -114,8 +113,6 @@ public class SharingController {
 			Sharing sharing = sharingService.viewSharing(sno);
 			mav.addObject("users",users);
 			mav.addObject("sharing",sharing);
-			System.out.println(sharing);
-			System.out.println(users);
 			mav.addObject("sno",sno);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,7 +131,6 @@ public class SharingController {
 				sharing.setUserno(users.getUserno());
 				sharingService.registSharing(sharing, files);
 			}
-			System.out.println("registcontroller:" + sharing);
 			mav.setViewName("/sharing/sharingList");
 			mav.setViewName("redirect:/sharingList");
 		} catch (Exception e) {
@@ -148,7 +144,6 @@ public class SharingController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			Sharing sharing = sharingService.viewSharing(sno);
-			System.out.println("sharingview" + sharing);
 			//Integer reviewcount = reviewService.reviewcount(sharing.getUserno()); //거래후기 개수 (현재 삭제)
 			//model.addAttribute("reviewcount", reviewcount);
 			if (sharing.getSfileids() != null) { //tfile에 있는 파일 번호가 개수 만큼 sfileid로 들어감 
@@ -172,7 +167,6 @@ public class SharingController {
 					model.addAttribute("sect", sect);
 					Users uservo = new Users();					
 					uservo = sharingService.getSnickname(sno);
-					System.out.println("sharingviewuservo"+uservo);
 					model.addAttribute("uservo", uservo);
 					model.addAttribute("submitcheck", submitcheck); //쪽지 발송 완료 확인
 					mav.addObject("sharing", sharing);
@@ -185,7 +179,6 @@ public class SharingController {
 			}else {
 				Users uservo = new Users();				
 				uservo = sharingService.getSnickname(sno);
-				System.out.println("sharingviewuservo"+uservo);
 				model.addAttribute("uservo", uservo);
 				model.addAttribute("submitcheck", submitcheck);
 				mav.addObject("sharing", sharing);
@@ -207,7 +200,6 @@ public class SharingController {
 			}
 			Users uservo = new Users();
 			uservo = sharingService.getSnickname(sno);
-			System.out.println("sharingviewuservo"+uservo);
 			model.addAttribute("uservo", uservo);
 			model.addAttribute("submitcheck", submitcheck);
 			mav.addObject("sharing", sharing);
@@ -226,7 +218,6 @@ public class SharingController {
 			@PathVariable("userno") Integer userno,
 			@ModelAttribute Comments comments,Model model) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("댓글");
 		try {
 			Users users = (Users)session.getAttribute("authUser");
 			comments.setSno(sno);
@@ -246,7 +237,6 @@ public class SharingController {
 	@RequestMapping("/Slist/{sno}") //댓글 리스트
     @ResponseBody
     private List<Comments> SCommentServiceList(@PathVariable("sno") Integer sno, Model model) throws Exception{
-        System.out.println("댓글리스트 ");
         return commentService.selectCommentsno(sno);
     }
 	
@@ -268,7 +258,6 @@ public class SharingController {
 			@RequestParam("simageFile") MultipartFile[] files) {		
 		ModelAndView mav = new ModelAndView();
 		try {
-			System.out.println("modifycontroller: " + sharing);
 			sharingService.modifySharing(sharing);
 			sharingService.modifySfileids(sharing, fileVo, files); // sharing테이블의 sfileids는 수정하고, tfile에는 새로운 첨부파일이 등록되도록
 			// String[] fidArr = sharing.getSfileids().split(",");
@@ -311,12 +300,10 @@ public class SharingController {
 				likesService.registSlikes(likes);
 				sharingService.upSharingLikes(sharing);
 			}else if(likescheck == 1) {
-				System.out.println("1일때"+ likescheck);
 				likes.setLikescheck(likesService.getSlikescheck(likes)); //사용자가 해당 글번호에 좋아요를 눌렀는지 확인
 				likesService.updateSlikes(likes); //likes 컬럼을 0으로 바꾸고
 				sharingService.downSharingLikes(sharing); //sharing 테이블의 likescheck(총 좋아요를 받은 개수)를 -1 해줌
 			}else { //likescheck가 0일 때 1로 올려주는
-				System.out.println("0일때"+ likescheck);
 				likes.setLikescheck(likesService.getSlikescheck(likes));
 				likesService.updateSlikes(likes);
 				sharingService.upSharingLikes(sharing);
@@ -342,9 +329,7 @@ public class SharingController {
 				message.setSendBno(bauthuser.getBno());
 				sect = bauthuser.getSect();
 			}
-			System.out.println("messagecontroller:" + message);
 			String submitcheck = messageService.submitMessage(message, sect);
-			System.out.println("submitcheck:"+submitcheck);
 			if(submitcheck == "true") {
 				mav.addObject("submitcheck", "true");
 			}else {
@@ -372,15 +357,11 @@ public class SharingController {
 				apply.setWuserno(users.getUserno());
 				map.put("wuserno", apply.getWuserno());
 				map.put("sno", apply.getSno());
-				System.out.println("applyselect: "+ applyService.selectSwapply(map));
 				if(applyService.selectSwapply(map) == null) {
-					System.out.println("들어옴");
 					registcheck = applyService.registSwapply(apply);
-					System.out.println("registcheck:"+registcheck);
 					sharingService.upApplycount(sharing); //신청인원 개수 올려줌
 					if(registcheck == "true") { //신청되었는지 확인
 						mav.addObject("registcheck", "true");
-						System.out.println("registcheck:"+registcheck);
 					} else {
 						mav.addObject("registcheck", "false");
 					}
@@ -437,17 +418,14 @@ public class SharingController {
 		List<Sharing> sharingList = new ArrayList<>();
 		try {
 			if (keyword != null && keyword != "") {
-				System.out.println(keyword);
 				sharingList = sharingService.infiniteScrollDown(snoToStart, keyword);
 			} else {
 				sharingList = sharingService.infiniteScrollDown(snoToStart);
 			}
 
-			System.out.println("스크롤다운" + sharingList);
 			for (int i = 0; i < sharingList.size(); i++) {
 				if (sharingList.get(i).getSfileids() != null) {
 					sharingList.get(i).setSfileids(sharingList.get(i).getSfileids().split(",")[0]);
-					System.out.println(sharingList.get(i).getSfileids());
 				}
 			}
 		} catch (Exception e) {
@@ -464,8 +442,6 @@ public class SharingController {
 			@PathVariable("sno") Integer sno,Model model){
 		ModelAndView mav = new ModelAndView();
 		try {
-			System.out.println("삭제2 : " + sno);
-			System.out.println("삭제 : " + cno);
 			commentService.sharingCmtDelete(cno,sno);
 			mav.setViewName("redirect:/sharingView/"+sno);
 		}catch(Exception e) {
@@ -480,7 +456,6 @@ public class SharingController {
 								   @RequestParam("ccontent") String ccontent,
 								   @PathVariable("sno") Integer sno,
 								   @PathVariable("cno") Integer cno) {
-		System.out.println("수정 완료이동중");
 		ModelAndView mav = new ModelAndView();
 	    try {
 	    	comments.setSno(sno);

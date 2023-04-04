@@ -31,7 +31,6 @@ public class LikesServiceImpl implements LikesService{
 
 	@Override
 	public void updateSlikes(Likes likes) throws Exception {
-		System.out.println("likescheckup:" + likes.getLikescheck());
 		if(likes.getLikescheck()==0) {
 			likesDAO.upSlikescheck(likes);
 		}else {

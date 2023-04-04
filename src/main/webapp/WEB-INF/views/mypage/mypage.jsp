@@ -213,11 +213,9 @@
 				url : "/mypage",
 				data : {introduce:introduce},				
 				success : function(data) {
-					console.log(data);
 					var text ="";					
 					text += '<img id="setting" src="/static/image/setting1.png" alt="소개수정" >';
 					text += "<p>"+data+"</p>";
-					console.log("text" + text);
 					document.getElementById('introduce').innerHTML = text;	
 					 location.reload();
 					//$('#introduce').html(data);
@@ -246,7 +244,6 @@
 		} 
 	 
 		var chatuserno = document.getElementById('chatuserno').value;
-		console.log("chatuserno: " + chatuserno);
 
 		$(document).ready(function() {
 		
@@ -268,7 +265,6 @@
 				success: function(result) {
 					if (result >= 1) {
 						showUnread(result);
-						console.log(result);
 						$("#messageAlert").show();
 					} else {
 						$("#messageAlert").css('display','none');

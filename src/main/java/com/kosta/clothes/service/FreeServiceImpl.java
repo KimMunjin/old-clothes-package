@@ -25,7 +25,6 @@ public class FreeServiceImpl implements FreeService{
 		}		
 		free.setFno(freeNum);
 		free.setFreadcount(Long.valueOf(0));
-		System.out.println(free);
 		freeDao.insertFree(free);
 		
 	}

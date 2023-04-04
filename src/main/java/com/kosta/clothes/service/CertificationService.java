@@ -48,17 +48,13 @@ public class CertificationService implements UsersService {
         params.put("app_version", "test app 1.2"); // application name and version
         try {
             JSONObject obj = coolsms.send(params);  // 문자 보내기 JSONObject = 데이터 전달 위한 타입으로 정의
-            System.out.println(obj.toString());
         } catch (CoolsmsException e) {  // 문자전송 실패 시 메세지
-            System.out.println(e.getMessage());
-            System.out.println(e.getCode());
         }
     }
     
     //닉네임 중복 체크[개인]
     public boolean checkId(String checknick) throws Exception{
     	Users users = usersDao.selectName(checknick); //닉네임에 대한 정보를 찾아와 담는다ㅏ.
-    	System.out.println("users" + users);
     	if(users == null) {//정보가 null라면 사용가능
     		return false;
     	}
@@ -79,7 +75,6 @@ public class CertificationService implements UsersService {
 	@Override
 	public boolean checkuserid(String checkuserid) throws Exception {
 		Users users = usersDao.selectuserid(checkuserid);//아이디에 대한 정보를 찾아와 담는다ㅏ.
-    	System.out.println("users" + users);
     	if(users == null) {//정보가 null라면 사용가능
     		return false;
     	}
@@ -103,7 +98,6 @@ public class CertificationService implements UsersService {
 		String password = users.getPassword();
 		String encryptedPw=encryptHelper.encrypt(password);
 		users.setPassword(encryptedPw);
-		System.out.println("users : " + users.toString());
 		usersDao.insertUsers(users);
 	}
 
@@ -113,7 +107,6 @@ public class CertificationService implements UsersService {
 		String password = business.getBpassword();
 		String encryptedPw=encryptHelper.encrypt(password);
 		business.setBpassword(encryptedPw);
-		System.out.println("business : " + business.toString());
 		usersDao.insertBusiness(business);
 	}
 
@@ -121,8 +114,6 @@ public class CertificationService implements UsersService {
 		@Override
 		public Users login(String userid, String password) throws Exception {
 			Users uauthUser= null;
-			System.out.println("개인 : " + userid);
-			System.out.println("개인 : " + password);
 			String hashpw = usersDao.checkupass(userid);
 			boolean passcheck = encryptHelper.isMatch(password, hashpw);
 			if(passcheck) {
@@ -137,8 +128,6 @@ public class CertificationService implements UsersService {
 		@Override
 		public Business blogin(String businessid, String bpassword) throws Exception {
 			Business bauthUser = null;
-			System.out.println(businessid);
-			System.out.println(bpassword);
 			String hashpw = usersDao.checkbpass(businessid);
 			boolean passcheck = encryptHelper.isMatch(bpassword, hashpw);
 			if(passcheck) {
@@ -178,8 +167,6 @@ public class CertificationService implements UsersService {
 		//비밀번호 변경
 		@Override
 		public void changePass(String userid, String password) throws Exception {
-			System.out.println("userid:"+userid);
-			System.out.println("password:"+password);
 			String encryptedPw=encryptHelper.encrypt(password);
 			Map<String,String> map = new HashMap<String, String>(); //아이디와 패스워드를 map으로 담았음
 			map.put("userid", userid);
@@ -189,8 +176,6 @@ public class CertificationService implements UsersService {
 		//비밀번호 변경
 		@Override
 		public void changebPass(String businessid, String bpassword) throws Exception {
-			System.out.println("businessid:"+businessid);
-			System.out.println("bpassword:"+bpassword);
 			String encryptedPw=encryptHelper.encrypt(bpassword);
 			Map<String,String> map = new HashMap<String, String>(); //아이디와 패스워드를 map으로 담았음
 			map.put("businessid", businessid);
